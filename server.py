@@ -10,11 +10,21 @@ def proxy():
     if not target_url:
         return jsonify({"error": "Missing ?url= parameter"}), 400
 
-    try:
-        response = requests.get(target_url, headers={
-            "User-Agent": "Python-Proxy-Server"
-        }, timeout=15)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                      "AppleWebKit/537.36 (KHTML, like Gecko) "
+                      "Chrome/118.0.0.0 Safari/537.36",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Referer": "https://thepiratebay.org/",
+        "Cache-Control": "no-cache",
+        "Pragma": "no-cache"
+    }
 
+    try:
+        response = requests.get(target_url, headers=headers, timeout=20)
+
+        # Return raw HTML
         return response.text, response.status_code
 
     except Exception as e:
@@ -23,5 +33,5 @@ def proxy():
 
 @app.route("/")
 def home():
-    return "Python proxy server is running 1 ✔️"
+    return "Python proxy server is running ✔️"
 
