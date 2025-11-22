@@ -23,4 +23,5 @@ def proxy():
 
 @app.route("/")
 def home():
-    return "Python proxy server is running ✔️"
+    return "Python proxy server is running 1 ✔️"
+
